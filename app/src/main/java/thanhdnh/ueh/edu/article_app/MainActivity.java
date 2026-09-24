@@ -11,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
   public GridView gridview;
 
-  private AdapterView.OnItemClickListener onitemclick = new AdapterView.OnItemClickListener() {
+  private final AdapterView.OnItemClickListener onitemclick = new AdapterView.OnItemClickListener() {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-      Intent intent = new Intent(getBaseContext(), ViewArticleActivity.class);
+      // Chuyển sang màn hình chi tiết ViewUserActivity (hoặc ViewProfileActivity tùy tên class bạn đặt ở bước trước)
+      Intent intent = new Intent(MainActivity.this, ViewUserActivity.class);
       intent.putExtra("id", gridview.getAdapter().getItemId(position));
       startActivity(intent);
     }
@@ -24,11 +25,22 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    getSupportActionBar().hide();
+
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().hide();
+    }
 
     gridview = findViewById(R.id.gridview);
-    new ArticleData(getBaseContext(), gridview).loadData("https://raw.githubusercontent.com/thanhdnh/json/main/products.json", this);
-    gridview.setOnItemClickListener(onitemclick);
-  }
 
+    if (gridview == null) {
+      android.util.Log.e("DEBUG_APP", "LỖI: Không tìm thấy R.id.gridview trong activity_main.xml!");
+      return;
+    }
+
+    gridview.setOnItemClickListener(onitemclick);
+
+    // Lưu ý: Thay đường link URL nếu bạn có link json chứa UserProfile riêng
+    String url = "https://gist.githubusercontent.com/LaiThanhDat-glitch/9b8d68879b5da365460a754bc3720f0e/raw/c67e2f3c6de5c74409eb4d30ee68110c3f876fcd/users.json";
+    new UserData(this, gridview).loadData(url, this);
+  }
 }

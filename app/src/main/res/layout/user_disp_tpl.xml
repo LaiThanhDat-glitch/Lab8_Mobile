@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#1E1E1E"
+    android:padding="10dp">
+
+  <!-- Avatar: Đặt background xám sáng để chưa có ảnh vẫn thấy khung -->
+  <ImageView
+      android:id="@+id/imv_photo"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:background="#555555"
+      android:scaleType="centerCrop" />
+
+  <!-- Chữ màu trắng tinh (#FFFFFF) -->
+  <TextView
+      android:id="@+id/tv_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="User Name"
+      android:textColor="#FFFFFF"
+      android:textSize="16sp"
+      android:textStyle="bold" />
+
+</LinearLayout>
